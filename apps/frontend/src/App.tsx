@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LanguageDropdown } from "./LanguageDropdown";
 import { translateText } from "./services/translate";
+import { CameraComponent } from "./components/CameraComponent";
 
 function App() {
   const [sourceLanguage, setSourceLanguage] = useState('en');
@@ -8,6 +9,7 @@ function App() {
   const [sourceText, setSourceText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [error, setError] = useState('');
 
   const swapLanguages = () => {
@@ -41,17 +43,21 @@ function App() {
 
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-purple-50 to-blue-50 m-0 px-2 sm:px-4 md:px-8 overflow-x-hidden overflow-y-auto">
+      <CameraComponent isOpen={isCameraOpen} onClose={() => setIsCameraOpen(false)} />
       <nav className="fixed top-0 left-0 right-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50 shadow-sm">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-3">
-              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">MyTrancy</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">LangLens.ai</span>
             </div>
             <div className="flex items-center gap-4">
                 <span className="text-sm font-medium px-3 py-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent bg-size-200 animate-gradient-x">
                   New Feature 
                 </span>
-              <button className="flex items-center gap-2 px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <button 
+                onClick={() => setIsCameraOpen(true)}
+                className="flex items-center gap-2 px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={20}
@@ -61,7 +67,7 @@ function App() {
                 >
                   <path d="M21 7h-3.17l-1.84-2.44A1 1 0 0 0 15.3 4H8.7a1 1 0 0 0-.69.56L6.17 7H3a1 1 0 0 0-1 1v9a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM12 18a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
                 </svg>
-                Cam Trancy
+                Camera
               </button>
             </div>
           </div>
@@ -71,7 +77,7 @@ function App() {
       <div className="w-full min-h-screen px-2 sm:px-4 md:px-8 py-6 md:py-12 flex flex-col justify-center items-center">
         <div className="text-center mb-11 mt-11">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Instant <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Language Translator</span>
+            See & Speek <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Language Translator</span>
           </h1>
         </div>
 
@@ -107,12 +113,22 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="relative">
               <div className="absolute top-3 right-3 flex space-x-2">
-                <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" title="Clear text">
+                <button 
+                  onClick={() => setSourceText('')}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" 
+                  title="Clear text"
+                  disabled={!sourceText}
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                 </button>
-                <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" title="Copy text">
+                <button 
+                  onClick={() => navigator.clipboard.writeText(sourceText)}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" 
+                  title="Copy text"
+                  disabled={!sourceText}
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                   </svg>
@@ -138,15 +154,35 @@ function App() {
             <div className="relative">
               <div className="absolute top-3 right-3 flex space-x-2">
                 <button 
+                  onClick={() => setTranslatedText('')}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" 
+                  title="Clear translation"
+                  disabled={!translatedText}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+                <button 
                   onClick={() => navigator.clipboard.writeText(translatedText)}
                   className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" 
                   title="Copy translation"
+                  disabled={!translatedText}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                   </svg>
                 </button>
-                <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" title="Listen">
+                <button 
+                  onClick={() => {
+                    const speech = new SpeechSynthesisUtterance(translatedText);
+                    speech.lang = targetLanguage;
+                    window.speechSynthesis.speak(speech);
+                  }}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" 
+                  title="Listen"
+                  disabled={!translatedText}
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
                   </svg>
