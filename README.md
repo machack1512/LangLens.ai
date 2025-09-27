@@ -33,6 +33,11 @@ apps/
 │   │   ├── index.ts          
 │   │   └── routes/
 │   │       └── translate.ts
+|   |       └── upload.ts
+│   │   └── service/
+│   │       └── ocrService.ts
+│   │   └── utils/
+│   │       └── validation.ts
 │   ├── package.json
 │   └── tsconfig.json
 │
@@ -105,6 +110,7 @@ Create `.env` files in backend directories:
 Backend `.env`:
 ```env
 PORT=5000
+OCR_SPACE_API_KEY=your_api_key
 NODE_ENV=development
 ```
 
