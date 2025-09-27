@@ -2,6 +2,8 @@
 
 LangLens.ai is a modern, user-friendly language translation application built with React and TypeScript, featuring real-time translation capabilities and innovative features like camera-based text detection.
 
+site-link: https://langlens-ai-frontend.onrender.com
+
 ## 🌟 Features
 
 - **Real-time Translation**: Instant translation between multiple languages by Google Translate API.
