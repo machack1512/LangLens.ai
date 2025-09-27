@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://localhost:5000/api';
+export const API_BASE_URL = 'https://langlens-ai-backend.onrender.com/api';
 
 export interface TranslateRequest {
   text: string;
