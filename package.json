@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --parallel run dev",
-    "build": "pnpm run build:shared && pnpm --parallel run build",
-    "build:shared": "pnpm --filter shared build",
+    "build": "pnpm --parallel run build",
     "lint": "pnpm --parallel run lint",
     "clean": "pnpm --parallel run clean && rm -rf node_modules"
   },

@@ -41,9 +41,28 @@ function App() {
     }
   };
 
+  const handleOCRResult = (ocrResult: any) => {
+    if (ocrResult.text) {
+      setSourceText(ocrResult.text);
+    }
+    if (ocrResult.detectedLanguage) {
+      const lang = ocrResult.detectedLanguage.substring(0, 2).toLowerCase();
+      setSourceLanguage(lang);
+    }
+    setTranslatedText('');
+    setError('');
+  };
+
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-purple-50 to-blue-50 m-0 px-2 sm:px-4 md:px-8 overflow-x-hidden overflow-y-auto">
-      <CameraComponent isOpen={isCameraOpen} onClose={() => setIsCameraOpen(false)} />
+      <CameraComponent
+        isOpen={isCameraOpen}
+        onClose={() => setIsCameraOpen(false)}
+        onCapture={(imageData) => {
+          console.log("Captured image data:");
+        }}
+        onOCRResult={handleOCRResult}
+      />
       <nav className="fixed top-0 left-0 right-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50 shadow-sm">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">

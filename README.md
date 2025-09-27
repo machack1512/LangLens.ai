@@ -4,12 +4,9 @@ LangLens.ai is a modern, user-friendly language translation application built wi
 
 ## 🌟 Features
 
-- **Real-time Translation**: Instant translation between multiple languages
-- **Camera Integration**: Translate text directly from camera input
+- **Real-time Translation**: Instant translation between multiple languages by Google Translate API.
+- **Camera Integration**: Translate text directly from camera input through OCR(Optical Character Recognition) by OCRSpace API.
 - **Text-to-Speech**: Listen to translated text with proper pronunciation
-- **Modern UI/UX**: Clean, responsive interface with smooth animations
-- **Copy & Clear Functions**: Easy text management with copy and clear capabilities
-- **Character Counter**: Track your input with a character counter (5000 character limit)
 
 ## 🚀 Tech Stack
 
@@ -18,14 +15,14 @@ LangLens.ai is a modern, user-friendly language translation application built wi
 - TypeScript
 - Tailwind CSS
 - Vite
-- Modern UI components with gradient effects
 - Speech Synthesis API
 
 ### Backend
 - Node.js
 - TypeScript
 - Express.js
-- RESTful API architecture
+- OCRSpace API
+- Google Translate API
 
 ## 🛠️ Project Structure
 
@@ -33,9 +30,9 @@ LangLens.ai is a modern, user-friendly language translation application built wi
 apps/
 ├── backend/
 │   ├── src/
-│   │   ├── index.ts          # Server entry point
+│   │   ├── index.ts          
 │   │   └── routes/
-│   │       └── translate.ts   # Translation endpoints
+│   │       └── translate.ts
 │   ├── package.json
 │   └── tsconfig.json
 │
@@ -52,7 +49,7 @@ apps/
 │   └── vite.config.ts
 │
 └── packages/
-    └── shared/              # Shared utilities and types
+    └── shared/
 ```
 
 ## 🌈 Features Breakdown
@@ -71,8 +68,6 @@ apps/
 
 ### Accessibility Features
 - Text-to-Speech functionality
-- Responsive design for all screen sizes
-- Clear visual feedback for all actions
 
 ## 🚀 Getting Started
 
@@ -101,7 +96,7 @@ apps/
    pnpm dev
    ```
 
-4. Open http://localhost:5173 in your browser
+4. Open http://localhost:8080 in your browser
 
 ## 🔒 Environment Setup
 
